@@ -96,8 +96,31 @@ class SortingRobot:
         """
         Sort the robot's list.
         """
-        # Fill this out
-        pass
+        #start the bot
+        self.set_light_on()
+        while self.light_is_on():
+            #get first item
+            self.swap_item()
+            while self.can_move_right():
+                #if the robot can move right, move right
+                #keep going as far right until item is none
+                self.move_right()
+                #compare item and drop higher val for lover
+                if self.compare_item() > 0:
+                    self.swap_item()
+            while self.can_move_left() and self.compare_item() is not None:
+                #once you've gone as far right as you can and have not found a none
+                #start moving left
+                self.move_left()
+            self.swap_item()
+            #here if the next item is none, bot drops item for none, which is lowest
+            #and moves one place to right
+            if self.can_move_right():
+                self.move_right()
+            else:
+                #need to have this line in to terminate the initial while loop
+                #tests will not complete without it
+                self.set_light_off()
 
 
 if __name__ == "__main__":
